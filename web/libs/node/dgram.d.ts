@@ -1,7 +1,9 @@
-declare module "dgram" {
-    import { AddressInfo } from "net";
-    import * as dns from "dns";
-    import * as events from "events";
+declare namespace node { 
+ namespace dgram {
+    // let AddressInfo = net.AddressInfo;
+
+    //import * as dns from "dns";
+    //import * as events from "events";
 
     interface RemoteInfo {
         address: string;
@@ -36,7 +38,7 @@ declare module "dgram" {
 
     class Socket extends events.EventEmitter {
         addMembership(multicastAddress: string, multicastInterface?: string): void;
-        address(): AddressInfo;
+        address(): net.AddressInfo;
         bind(port?: number, address?: string, callback?: () => void): void;
         bind(port?: number, callback?: () => void): void;
         bind(callback?: () => void): void;
@@ -49,10 +51,10 @@ declare module "dgram" {
         getRecvBufferSize(): number;
         getSendBufferSize(): number;
         ref(): this;
-        remoteAddress(): AddressInfo;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
-        send(msg: string | Uint8Array | ReadonlyArray<any>, callback?: (error: Error | null, bytes: number) => void): void;
+        remoteAddress(): net.AddressInfo;
+        send(msg: string | Uint8Array | any[], port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | any[], port?: number, callback?: (error: Error | null, bytes: number) => void): void;
+        send(msg: string | Uint8Array | any[], callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, address?: string, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, port?: number, callback?: (error: Error | null, bytes: number) => void): void;
         send(msg: string | Uint8Array, offset: number, length: number, callback?: (error: Error | null, bytes: number) => void): void;
@@ -115,4 +117,5 @@ declare module "dgram" {
         prependOnceListener(event: "listening", listener: () => void): this;
         prependOnceListener(event: "message", listener: (msg: Buffer, rinfo: RemoteInfo) => void): this;
     }
+}
 }

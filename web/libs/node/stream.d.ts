@@ -1,11 +1,12 @@
-declare module 'stream' {
-    import EventEmitter = require('events');
+declare namespace node { 
+ namespace stream {
+    //import * as events from "events";
 
-    class internal extends EventEmitter {
+    class internal extends events.EventEmitter {
         pipe<T extends NodeJS.WritableStream>(destination: T, options?: { end?: boolean; }): T;
     }
 
-    namespace internal {
+    // namespace internal {
         class Stream extends internal { }
 
         interface ReadableOptions {
@@ -24,9 +25,6 @@ declare module 'stream' {
             static from(iterable: Iterable<any> | AsyncIterable<any>, options?: ReadableOptions): Readable;
 
             readable: boolean;
-            readonly readableEncoding: BufferEncoding | null;
-            readonly readableEnded: boolean;
-            readonly readableFlowing: boolean | null;
             readonly readableHighWaterMark: number;
             readonly readableLength: number;
             readonly readableObjectMode: boolean;
@@ -293,10 +291,7 @@ declare module 'stream' {
             stream5: T,
             callback?: (err: NodeJS.ErrnoException | null) => void,
         ): T;
-        function pipeline(
-            streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>,
-            callback?: (err: NodeJS.ErrnoException | null) => void,
-        ): NodeJS.WritableStream;
+        function pipeline(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>, callback?: (err: NodeJS.ErrnoException | null) => void): NodeJS.WritableStream;
         function pipeline(
             stream1: NodeJS.ReadableStream,
             stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
@@ -313,7 +308,7 @@ declare module 'stream' {
                 stream4: NodeJS.ReadWriteStream,
                 stream5: NodeJS.WritableStream,
             ): Promise<void>;
-            function __promisify__(streams: ReadonlyArray<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
+            function __promisify__(streams: Array<NodeJS.ReadableStream | NodeJS.WritableStream | NodeJS.ReadWriteStream>): Promise<void>;
             function __promisify__(
                 stream1: NodeJS.ReadableStream,
                 stream2: NodeJS.ReadWriteStream | NodeJS.WritableStream,
@@ -327,7 +322,8 @@ declare module 'stream' {
             ref(): void;
             unref(): void;
         }
-    }
+    // }
 
-    export = internal;
+    //export = internal;
+}
 }

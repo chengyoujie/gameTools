@@ -1,4 +1,5 @@
-declare module "dns" {
+declare namespace node { 
+ namespace dns {
     // Supported getaddrinfo flags.
     const ADDRCONFIG: number;
     const V4MAPPED: number;
@@ -363,4 +364,5 @@ declare module "dns" {
             setServers: typeof setServers;
         }
     }
+}
 }

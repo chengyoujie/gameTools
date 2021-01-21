@@ -1,6 +1,7 @@
-declare module "readline" {
-    import * as events from "events";
-    import * as stream from "stream";
+declare namespace node { 
+ namespace readline {
+    //import * as events from "events";
+    //import * as stream from "stream";
 
     interface Key {
         sequence?: string;
@@ -155,4 +156,5 @@ declare module "readline" {
      * Moves this WriteStream's cursor relative to its current position.
      */
     function moveCursor(stream: NodeJS.WritableStream, dx: number, dy: number, callback?: () => void): boolean;
+}
 }

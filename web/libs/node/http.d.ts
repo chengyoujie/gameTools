@@ -1,8 +1,10 @@
-declare module "http" {
-    import * as events from "events";
-    import * as stream from "stream";
-    import { URL } from "url";
-    import { Socket, Server as NetServer } from "net";
+declare namespace node { 
+ namespace http {
+    //import * as events from "events";
+    //import * as stream from "stream";
+    // let URL = URL.URL;
+
+    // import { Socket, Server as NetServer } from "net";
 
     // incoming headers will never contain number
     interface IncomingHttpHeaders {
@@ -16,8 +18,6 @@ declare module "http" {
         'access-control-allow-origin'?: string;
         'access-control-expose-headers'?: string;
         'access-control-max-age'?: string;
-        'access-control-request-headers'?: string;
-        'access-control-request-method'?: string;
         'age'?: string;
         'allow'?: string;
         'alt-svc'?: string;
@@ -44,7 +44,6 @@ declare module "http" {
         'if-unmodified-since'?: string;
         'last-modified'?: string;
         'location'?: string;
-        'origin'?: string;
         'pragma'?: string;
         'proxy-authenticate'?: string;
         'proxy-authorization'?: string;
@@ -89,7 +88,7 @@ declare module "http" {
         timeout?: number;
         setHost?: boolean;
         // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L278
-        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: Socket) => void) => Socket;
+        createConnection?: (options: ClientRequestArgs, oncreate: (err: Error, socket: net.Socket) => void) => net.Socket;
     }
 
     interface ServerOptions {
@@ -99,7 +98,7 @@ declare module "http" {
 
     type RequestListener = (req: IncomingMessage, res: ServerResponse) => void;
 
-    class Server extends NetServer {
+    class Server extends net.Server {
         constructor(requestListener?: RequestListener);
         constructor(options: ServerOptions, requestListener?: RequestListener);
 
@@ -130,18 +129,18 @@ declare module "http" {
         sendDate: boolean;
         finished: boolean;
         headersSent: boolean;
-        connection: Socket;
+        connection: net.Socket;
 
         constructor();
 
         setTimeout(msecs: number, callback?: () => void): this;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | string[]): void;
         getHeader(name: string): number | string | string[] | undefined;
         getHeaders(): OutgoingHttpHeaders;
         getHeaderNames(): string[];
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        addTrailers(headers: OutgoingHttpHeaders | ReadonlyArray<[string, string]>): void;
+        addTrailers(headers: OutgoingHttpHeaders | Array<[string, string]>): void;
         flushHeaders(): void;
     }
 
@@ -153,8 +152,8 @@ declare module "http" {
 
         constructor(req: IncomingMessage);
 
-        assignSocket(socket: Socket): void;
-        detachSocket(socket: Socket): void;
+        assignSocket(socket: net.Socket): void;
+        detachSocket(socket: net.Socket): void;
         // https://github.com/nodejs/node/blob/master/test/parallel/test-http-write-callbacks.js#L53
         // no args in writeContinue callback
         writeContinue(callback?: () => void): void;
@@ -173,32 +172,29 @@ declare module "http" {
         rawHeaders: string[];
     }
 
-    // https://github.com/nodejs/node/blob/v12.20.0/lib/_http_client.js#L85
+    // https://github.com/nodejs/node/blob/master/lib/_http_client.js#L77
     class ClientRequest extends OutgoingMessage {
-        connection: Socket;
-        socket: Socket;
-        aborted: boolean;
-        host: string;
-        protocol: string;
+        connection: net.Socket;
+        socket: net.Socket;
+        aborted: number;
 
         constructor(url: string | URL | ClientRequestArgs, cb?: (res: IncomingMessage) => void);
 
-        method: string;
         readonly path: string;
         abort(): void;
-        onSocket(socket: Socket): void;
+        onSocket(socket: net.Socket): void;
         setTimeout(timeout: number, callback?: () => void): this;
         setNoDelay(noDelay?: boolean): void;
         setSocketKeepAlive(enable?: boolean, initialDelay?: number): void;
 
         addListener(event: 'abort', listener: () => void): this;
-        addListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(event: 'connect', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         addListener(event: 'continue', listener: () => void): this;
         addListener(event: 'information', listener: (info: InformationEvent) => void): this;
         addListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        addListener(event: 'socket', listener: (socket: Socket) => void): this;
+        addListener(event: 'socket', listener: (socket: net.Socket) => void): this;
         addListener(event: 'timeout', listener: () => void): this;
-        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        addListener(event: 'upgrade', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         addListener(event: 'close', listener: () => void): this;
         addListener(event: 'drain', listener: () => void): this;
         addListener(event: 'error', listener: (err: Error) => void): this;
@@ -208,13 +204,13 @@ declare module "http" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         on(event: 'abort', listener: () => void): this;
-        on(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: 'connect', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         on(event: 'continue', listener: () => void): this;
         on(event: 'information', listener: (info: InformationEvent) => void): this;
         on(event: 'response', listener: (response: IncomingMessage) => void): this;
-        on(event: 'socket', listener: (socket: Socket) => void): this;
+        on(event: 'socket', listener: (socket: net.Socket) => void): this;
         on(event: 'timeout', listener: () => void): this;
-        on(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        on(event: 'upgrade', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         on(event: 'close', listener: () => void): this;
         on(event: 'drain', listener: () => void): this;
         on(event: 'error', listener: (err: Error) => void): this;
@@ -224,13 +220,13 @@ declare module "http" {
         on(event: string | symbol, listener: (...args: any[]) => void): this;
 
         once(event: 'abort', listener: () => void): this;
-        once(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: 'connect', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         once(event: 'continue', listener: () => void): this;
         once(event: 'information', listener: (info: InformationEvent) => void): this;
         once(event: 'response', listener: (response: IncomingMessage) => void): this;
-        once(event: 'socket', listener: (socket: Socket) => void): this;
+        once(event: 'socket', listener: (socket: net.Socket) => void): this;
         once(event: 'timeout', listener: () => void): this;
-        once(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        once(event: 'upgrade', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         once(event: 'close', listener: () => void): this;
         once(event: 'drain', listener: () => void): this;
         once(event: 'error', listener: (err: Error) => void): this;
@@ -240,13 +236,13 @@ declare module "http" {
         once(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependListener(event: 'abort', listener: () => void): this;
-        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(event: 'connect', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         prependListener(event: 'continue', listener: () => void): this;
         prependListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependListener(event: 'socket', listener: (socket: Socket) => void): this;
+        prependListener(event: 'socket', listener: (socket: net.Socket) => void): this;
         prependListener(event: 'timeout', listener: () => void): this;
-        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependListener(event: 'upgrade', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         prependListener(event: 'close', listener: () => void): this;
         prependListener(event: 'drain', listener: () => void): this;
         prependListener(event: 'error', listener: (err: Error) => void): this;
@@ -256,13 +252,13 @@ declare module "http" {
         prependListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         prependOnceListener(event: 'abort', listener: () => void): this;
-        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(event: 'connect', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         prependOnceListener(event: 'continue', listener: () => void): this;
         prependOnceListener(event: 'information', listener: (info: InformationEvent) => void): this;
         prependOnceListener(event: 'response', listener: (response: IncomingMessage) => void): this;
-        prependOnceListener(event: 'socket', listener: (socket: Socket) => void): this;
+        prependOnceListener(event: 'socket', listener: (socket: net.Socket) => void): this;
         prependOnceListener(event: 'timeout', listener: () => void): this;
-        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: Socket, head: Buffer) => void): this;
+        prependOnceListener(event: 'upgrade', listener: (response: IncomingMessage, socket: net.Socket, head: Buffer) => void): this;
         prependOnceListener(event: 'close', listener: () => void): this;
         prependOnceListener(event: 'drain', listener: () => void): this;
         prependOnceListener(event: 'error', listener: (err: Error) => void): this;
@@ -273,14 +269,14 @@ declare module "http" {
     }
 
     class IncomingMessage extends stream.Readable {
-        constructor(socket: Socket);
+        constructor(socket: net.Socket);
 
         aborted: boolean;
         httpVersion: string;
         httpVersionMajor: number;
         httpVersionMinor: number;
         complete: boolean;
-        connection: Socket;
+        connection: net.Socket;
         headers: IncomingHttpHeaders;
         rawHeaders: string[];
         trailers: { [key: string]: string | undefined };
@@ -302,7 +298,7 @@ declare module "http" {
          * Only valid for response obtained from http.ClientRequest.
          */
         statusMessage?: string;
-        socket: Socket;
+        socket: net.Socket;
         destroy(error?: Error): void;
     }
 
@@ -321,15 +317,11 @@ declare module "http" {
          */
         maxSockets?: number;
         /**
-         * Maximum number of sockets allowed for all hosts in total. Each request will use a new socket until the maximum is reached. Default: Infinity.
-         */
-        maxTotalSockets?: number;
-        /**
          * Maximum number of sockets to leave open in a free state. Only relevant if keepAlive is set to true. Default = 256.
          */
         maxFreeSockets?: number;
         /**
-         * Socket timeout in milliseconds. This will set the timeout after the socket is connected.
+         * net.Socket timeout in milliseconds. This will set the timeout after the socket is connected.
          */
         timeout?: number;
     }
@@ -337,9 +329,8 @@ declare module "http" {
     class Agent {
         maxFreeSockets: number;
         maxSockets: number;
-        maxTotalSockets: number;
         readonly sockets: {
-            readonly [key: string]: Socket[];
+            readonly [key: string]: net.Socket[];
         };
         readonly requests: {
             readonly [key: string]: IncomingMessage[];
@@ -380,4 +371,5 @@ declare module "http" {
      * Defaults to 8KB. Configurable using the [`--max-http-header-size`][] CLI option.
      */
     const maxHeaderSize: number;
+}
 }

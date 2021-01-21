@@ -1,7 +1,8 @@
-declare module "cluster" {
-    import * as child from "child_process";
-    import * as events from "events";
-    import * as net from "net";
+declare namespace node { 
+ namespace cluster {
+    // import * as child from "child_process";
+    //import * as events from "events";
+    //import * as net from "net";
 
     // interfaces
     interface ClusterSettings {
@@ -23,7 +24,7 @@ declare module "cluster" {
 
     class Worker extends events.EventEmitter {
         id: number;
-        process: child.ChildProcess;
+        process: child_process.ChildProcess;
         send(message: any, sendHandle?: any, callback?: (error: Error | null) => void): boolean;
         kill(signal?: string): void;
         destroy(signal?: string): void;
@@ -257,4 +258,5 @@ declare module "cluster" {
     function prependOnceListener(event: "setup", listener: (settings: ClusterSettings) => void): Cluster;
 
     function eventNames(): string[];
+}
 }

@@ -1,5 +1,7 @@
-declare module "url" {
-    import { ParsedUrlQuery, ParsedUrlQueryInput } from 'querystring';
+declare namespace node { 
+ namespace url {
+    // let ParsedUrlQueryInput = ParsedUrlQueryInput.ParsedUrlQueryInput;
+
 
     // Input to `url.format`
     interface UrlObject {
@@ -14,7 +16,7 @@ declare module "url" {
         search?: string | null;
         slashes?: boolean | null;
         port?: string | number | null;
-        query?: string | null | ParsedUrlQueryInput;
+        query?: string | null | querystring.ParsedUrlQueryInput;
     }
 
     // Output of `url.parse`
@@ -30,30 +32,24 @@ declare module "url" {
         search: string | null;
         slashes: boolean | null;
         port: string | null;
-        query: string | null | ParsedUrlQuery;
+        query: string | null | querystring.ParsedUrlQuery;
     }
 
     interface UrlWithParsedQuery extends Url {
-        query: ParsedUrlQuery;
+        query: querystring.ParsedUrlQuery;
     }
 
     interface UrlWithStringQuery extends Url {
         query: string | null;
     }
 
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: false | undefined, slashesDenoteHost?: boolean): UrlWithStringQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: true, slashesDenoteHost?: boolean): UrlWithParsedQuery;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function parse(urlStr: string, parseQueryString: boolean, slashesDenoteHost?: boolean): Url;
 
     function format(URL: URL, options?: URLFormatOptions): string;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function format(urlObject: UrlObject | string): string;
-    /** @deprecated since v11.0.0 - Use the WHATWG URL API. */
     function resolve(from: string, to: string): string;
 
     function domainToASCII(domain: string): string;
@@ -99,7 +95,7 @@ declare module "url" {
     }
 
     class URLSearchParams implements Iterable<[string, string]> {
-        constructor(init?: URLSearchParams | string | { [key: string]: string | ReadonlyArray<string> | undefined } | Iterable<[string, string]> | ReadonlyArray<[string, string]>);
+        constructor(init?: URLSearchParams | string | { [key: string]: string | string[] | undefined } | Iterable<[string, string]> | Array<[string, string]>);
         append(name: string, value: string): void;
         delete(name: string): void;
         entries(): IterableIterator<[string, string]>;
@@ -114,4 +110,5 @@ declare module "url" {
         values(): IterableIterator<string>;
         [Symbol.iterator](): IterableIterator<[string, string]>;
     }
+}
 }

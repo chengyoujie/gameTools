@@ -1,7 +1,8 @@
-declare module "net" {
-    import * as stream from "stream";
-    import * as events from "events";
-    import * as dns from "dns";
+declare namespace node { 
+ namespace net {
+    //import * as stream from "stream";
+    //import * as events from "events";
+    //import * as dns from "dns";
 
     type LookupFunction = (hostname: string, options: dns.LookupOneOptions, callback: (err: NodeJS.ErrnoException | null, address: string, family: number) => void) => void;
 
@@ -265,4 +266,5 @@ declare module "net" {
     function isIP(input: string): number;
     function isIPv4(input: string): boolean;
     function isIPv6(input: string): boolean;
+}
 }

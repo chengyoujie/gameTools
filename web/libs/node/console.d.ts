@@ -1,3 +1,5 @@
-declare module "console" {
-    export = console;
+declare namespace node { 
+ namespace console {
+    //export = console;
+}
 }

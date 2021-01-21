@@ -62,7 +62,7 @@ interface Console {
      * This method does not display anything unless used in the inspector.
      *  Prints to `stdout` the array `array` formatted as a table.
      */
-    table(tabularData: any, properties?: ReadonlyArray<string>): void;
+    table(tabularData: any, properties?: string[]): void;
     /**
      * Starts a timer that can be used to compute the duration of an operation. Timers are identified by a unique `label`.
      */
@@ -152,11 +152,6 @@ interface String {
     trimLeft(): string;
     /** Removes whitespace from the right end of a string. */
     trimRight(): string;
-
-    /** Returns a copy with leading whitespace removed. */
-    trimStart(): string;
-    /** Returns a copy with trailing whitespace removed. */
-    trimEnd(): string;
 }
 
 interface ImportMeta {
@@ -169,6 +164,7 @@ interface ImportMeta {
  *                                               *
  ------------------------------------------------*/
 declare var process: NodeJS.Process;
+declare var global: NodeJS.Global|any;
 declare var console: Console;
 
 declare var __filename: string;
@@ -193,6 +189,7 @@ declare function queueMicrotask(callback: () => void): void;
 
 // TODO: change to `type NodeRequireFunction = (id: string) => any;` in next mayor version.
 interface NodeRequireFunction {
+    /* tslint:disable-next-line:callable-types */
     (id: string): any;
 }
 
@@ -230,15 +227,8 @@ interface NodeModule {
     id: string;
     filename: string;
     loaded: boolean;
-    /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
-    parent: NodeModule | null | undefined;
+    parent: NodeModule | null;
     children: NodeModule[];
-    /**
-     * @since 11.14.0
-     *
-     * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
-     */
-    path: string;
     paths: string[];
 }
 
@@ -252,14 +242,6 @@ type BufferEncoding = "ascii" | "utf8" | "utf-8" | "utf16le" | "ucs2" | "ucs-2" 
 
 interface Buffer {
     constructor: typeof Buffer;
-    readBigUInt64BE(offset?: number): bigint;
-    readBigUInt64LE(offset?: number): bigint;
-    readBigInt64BE(offset?: number): bigint;
-    readBigInt64LE(offset?: number): bigint;
-    writeBigInt64BE(value: bigint, offset?: number): number;
-    writeBigInt64LE(value: bigint, offset?: number): number;
-    writeBigUInt64BE(value: bigint, offset?: number): number;
-    writeBigUInt64LE(value: bigint, offset?: number): number;
 }
 
 /**
@@ -305,7 +287,7 @@ declare class Buffer extends Uint8Array {
      * @param array The octets to store.
      * @deprecated since v10.0.0 - Use `Buffer.from(array)` instead.
      */
-    constructor(array: ReadonlyArray<any>);
+    constructor(array: any[]);
     /**
      * Copies the passed {buffer} data onto a new {Buffer} instance.
      *
@@ -326,7 +308,7 @@ declare class Buffer extends Uint8Array {
      * Creates a new Buffer using the passed {data}
      * @param data data to create a new Buffer
      */
-    static from(data: ReadonlyArray<number>): Buffer;
+    static from(data: number[]): Buffer;
     static from(data: Uint8Array): Buffer;
     /**
      * Creates a new buffer containing the coerced value of an object
@@ -380,7 +362,7 @@ declare class Buffer extends Uint8Array {
      * @param totalLength Total length of the buffers when concatenated.
      *   If totalLength is not provided, it is read from the buffers in the list. However, this adds an additional loop to the function, so it is faster to provide the length explicitly.
      */
-    static concat(list: ReadonlyArray<Uint8Array>, totalLength?: number): Buffer;
+    static concat(list: Uint8Array[], totalLength?: number): Buffer;
     /**
      * The same as buf1.compare(buf2).
      */
@@ -763,7 +745,6 @@ declare namespace NodeJS {
 
     interface HRTime {
         (time?: [number, number]): [number, number];
-        bigint(): bigint;
     }
 
     interface ProcessReport {
@@ -854,18 +835,18 @@ declare namespace NodeJS {
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
          */
-        stdout: WriteStream;
+        stdout: node.fs.WriteStream;
         /**
          * Can also be a tty.WriteStream, not typed due to limitation.s
          */
-        stderr: WriteStream;
-        stdin: ReadStream;
+        stderr: node.fs.WriteStream;
+        stdin: node.fs.ReadStream;
         openStdin(): Socket;
         argv: string[];
         argv0: string;
         execArgv: string[];
         execPath: string;
-        abort(): never;
+        abort(): void;
         chdir(directory: string): void;
         cwd(): string;
         debugPort: number;
@@ -882,7 +863,7 @@ declare namespace NodeJS {
         getegid(): number;
         setegid(id: number | string): void;
         getgroups(): number[];
-        setgroups(groups: ReadonlyArray<string | number>): void;
+        setgroups(groups: Array<string | number>): void;
         setUncaughtExceptionCaptureCallback(cb: ((err: Error) => void) | null): void;
         hasUncaughtExceptionCaptureCallback(): boolean;
         version: string;
@@ -913,7 +894,7 @@ declare namespace NodeJS {
                 visibility: string;
             };
         };
-        kill(pid: number, signal?: string | number): true;
+        kill(pid: number, signal?: string | number): void;
         pid: number;
         ppid: number;
         title: string;
@@ -935,15 +916,9 @@ declare namespace NodeJS {
             tls: boolean;
         };
         /**
-         * @deprecated since v12.19.0 - Calling process.umask() with no argument causes
-         * the process-wide umask to be written twice. This introduces a race condition between threads,
-         * and is a potential security vulnerability. There is no safe, cross-platform alternative API.
-         */
-        umask(): number;
-        /**
          * Can only be set if not in worker thread.
          */
-        umask(mask: string | number): number;
+        umask(mask?: number): number;
         uptime(): number;
         hrtime: HRTime;
         domain: Domain;
@@ -1146,7 +1121,6 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
-        [Symbol.toPrimitive](): number;
     }
 
     class Immediate {
@@ -1161,7 +1135,6 @@ declare namespace NodeJS {
         ref(): this;
         refresh(): this;
         unref(): this;
-        [Symbol.toPrimitive](): number;
     }
 
     class Module {
@@ -1182,35 +1155,17 @@ declare namespace NodeJS {
         id: string;
         filename: string;
         loaded: boolean;
-        /** @deprecated since 12.19.0 Please use `require.main` and `module.children` instead. */
-        parent: Module | null | undefined;
+        parent: Module | null;
         children: Module[];
-        /**
-         * @since 11.14.0
-         *
-         * The directory name of the module. This is usually the same as the path.dirname() of the module.id.
-         */
-        path: string;
         paths: string[];
 
         constructor(id: string, parent?: Module);
     }
 
-    interface Dict<T> {
-        [key: string]: T | undefined;
-    }
-
-    type TypedArray =
-        | Uint8Array
-        | Uint8ClampedArray
-        | Uint16Array
-        | Uint32Array
-        | Int8Array
-        | Int16Array
-        | Int32Array
-        | BigUint64Array
-        | BigInt64Array
-        | Float32Array
-        | Float64Array;
+    type TypedArray = Uint8Array | Uint8ClampedArray | Uint16Array | Uint32Array | Int8Array | Int16Array | Int32Array | Float32Array | Float64Array;
     type ArrayBufferView = TypedArray | DataView;
+
+    // The value type here is a "poor man's `unknown`". When these types support TypeScript
+    // 3.0+, we can replace this with `unknown`.
+    type PoorMansUnknown = {} | null | undefined;
 }

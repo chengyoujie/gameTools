@@ -1,4 +1,5 @@
-declare module "os" {
+declare namespace node { 
+ namespace os {
     interface CpuInfo {
         model: string;
         speed: number;
@@ -260,4 +261,5 @@ declare module "os" {
      * @param priority Must be in range of -20 to 19
      */
     function setPriority(pid: number, priority: number): void;
+}
 }

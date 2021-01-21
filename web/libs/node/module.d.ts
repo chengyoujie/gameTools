@@ -1,3 +1,5 @@
-declare module "module" {
-    export = NodeJS.Module;
+declare namespace node { 
+ namespace module {
+    //export = NodeJS.Module;
+}
 }

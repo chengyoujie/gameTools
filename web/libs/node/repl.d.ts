@@ -1,7 +1,10 @@
-declare module "repl" {
-    import { Interface, Completer, AsyncCompleter } from "readline";
-    import { Context } from "vm";
-    import { InspectOptions } from "util";
+declare namespace node { 
+ namespace repl {
+    // let AsyncCompleter = AsyncCompleter.AsyncCompleter;
+
+    // import { Context } from "vm";
+    // let InspectOptions = InspectOptions.InspectOptions;
+
 
     interface ReplOptions {
         /**
@@ -68,7 +71,7 @@ declare module "repl" {
          *
          * @see https://nodejs.org/dist/latest-v11.x/docs/api/readline.html#readline_use_of_the_completer_function
          */
-        completer?: Completer | AsyncCompleter;
+        completer?: readline.Completer | readline.AsyncCompleter;
         /**
          * A flag that specifies whether the default evaluator executes all JavaScript commands in
          * strict mode or default (sloppy) mode.
@@ -86,14 +89,14 @@ declare module "repl" {
         breakEvalOnSigint?: boolean;
     }
 
-    type REPLEval = (this: REPLServer, evalCmd: string, context: Context, file: string, cb: (err: Error | null, result: any) => void) => void;
+    type REPLEval = (this: REPLServer, evalCmd: string, context: vm.Context, file: string, cb: (err: Error | null, result: any) => void) => void;
     type REPLWriter = (this: REPLServer, obj: any) => string;
 
     /**
      * This is the default "writer" value, if none is passed in the REPL options,
      * and it can be overridden by custom print functions.
      */
-    const writer: REPLWriter & { options: InspectOptions };
+    const writer: REPLWriter & { options: util.InspectOptions };
 
     type REPLCommandAction = (this: REPLServer, text: string) => void;
 
@@ -124,28 +127,20 @@ declare module "repl" {
      *
      * @see https://nodejs.org/dist/latest-v10.x/docs/api/repl.html#repl_repl
      */
-    class REPLServer extends Interface {
+    class REPLServer extends readline.Interface {
         /**
          * The `vm.Context` provided to the `eval` function to be used for JavaScript
          * evaluation.
          */
-        readonly context: Context;
-        /**
-         * Outdated alias for `input`.
-         */
-        readonly inputStream: NodeJS.ReadableStream;
-        /**
-         * Outdated alias for `output`.
-         */
-        readonly outputStream: NodeJS.WritableStream;
+        readonly context: vm.Context;
         /**
          * The `Readable` stream from which REPL input will be read.
          */
-        readonly input: NodeJS.ReadableStream;
+        readonly inputStream: NodeJS.ReadableStream;
         /**
          * The `Writable` stream to which REPL output will be written.
          */
-        readonly output: NodeJS.WritableStream;
+        readonly outputStream: NodeJS.WritableStream;
         /**
          * The commands registered via `replServer.defineCommand()`.
          */
@@ -213,7 +208,7 @@ declare module "repl" {
         /**
          * Specified in the REPL options, this is the function to use for custom Tab auto-completion.
          */
-        readonly completer: Completer | AsyncCompleter;
+        readonly completer: readline.Completer | readline.AsyncCompleter;
         /**
          * Specified in the REPL options, this is a flag that specifies whether the default `eval`
          * function should execute all JavaScript commands in strict mode or default (sloppy) mode.
@@ -300,7 +295,7 @@ declare module "repl" {
         addListener(event: "SIGINT", listener: () => void): this;
         addListener(event: "SIGTSTP", listener: () => void): this;
         addListener(event: "exit", listener: () => void): this;
-        addListener(event: "reset", listener: (context: Context) => void): this;
+        addListener(event: "reset", listener: (context: vm.Context) => void): this;
 
         emit(event: string | symbol, ...args: any[]): boolean;
         emit(event: "close"): boolean;
@@ -311,7 +306,7 @@ declare module "repl" {
         emit(event: "SIGINT"): boolean;
         emit(event: "SIGTSTP"): boolean;
         emit(event: "exit"): boolean;
-        emit(event: "reset", context: Context): boolean;
+        emit(event: "reset", context: vm.Context): boolean;
 
         on(event: string, listener: (...args: any[]) => void): this;
         on(event: "close", listener: () => void): this;
@@ -322,7 +317,7 @@ declare module "repl" {
         on(event: "SIGINT", listener: () => void): this;
         on(event: "SIGTSTP", listener: () => void): this;
         on(event: "exit", listener: () => void): this;
-        on(event: "reset", listener: (context: Context) => void): this;
+        on(event: "reset", listener: (context: vm.Context) => void): this;
 
         once(event: string, listener: (...args: any[]) => void): this;
         once(event: "close", listener: () => void): this;
@@ -333,7 +328,7 @@ declare module "repl" {
         once(event: "SIGINT", listener: () => void): this;
         once(event: "SIGTSTP", listener: () => void): this;
         once(event: "exit", listener: () => void): this;
-        once(event: "reset", listener: (context: Context) => void): this;
+        once(event: "reset", listener: (context: vm.Context) => void): this;
 
         prependListener(event: string, listener: (...args: any[]) => void): this;
         prependListener(event: "close", listener: () => void): this;
@@ -344,7 +339,7 @@ declare module "repl" {
         prependListener(event: "SIGINT", listener: () => void): this;
         prependListener(event: "SIGTSTP", listener: () => void): this;
         prependListener(event: "exit", listener: () => void): this;
-        prependListener(event: "reset", listener: (context: Context) => void): this;
+        prependListener(event: "reset", listener: (context: vm.Context) => void): this;
 
         prependOnceListener(event: string, listener: (...args: any[]) => void): this;
         prependOnceListener(event: "close", listener: () => void): this;
@@ -355,7 +350,7 @@ declare module "repl" {
         prependOnceListener(event: "SIGINT", listener: () => void): this;
         prependOnceListener(event: "SIGTSTP", listener: () => void): this;
         prependOnceListener(event: "exit", listener: () => void): this;
-        prependOnceListener(event: "reset", listener: (context: Context) => void): this;
+        prependOnceListener(event: "reset", listener: (context: vm.Context) => void): this;
     }
 
     /**
@@ -387,4 +382,5 @@ declare module "repl" {
 
         constructor(err: Error);
     }
+}
 }

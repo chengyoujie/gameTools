@@ -1,5 +1,7 @@
-declare module "v8" {
-    import { Readable } from "stream";
+declare namespace node { 
+ namespace v8 {
+    // let Readable = Readable.Readable;
+
 
     interface HeapSpaceInfo {
         space_name: string;
@@ -49,7 +51,7 @@ declare module "v8" {
      * Chrome DevTools. The JSON schema is undocumented and specific to the
      * V8 engine, and may change from one version of V8 to the next.
      */
-    function getHeapSnapshot(): Readable;
+    function getHeapSnapshot(): stream.Readable;
 
     /**
      *
@@ -194,4 +196,5 @@ declare module "v8" {
      * @experimental
      */
     function deserialize(data: NodeJS.TypedArray): any;
+}
 }

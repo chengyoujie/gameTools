@@ -1,4 +1,5 @@
-declare module "querystring" {
+declare namespace node { 
+ namespace querystring {
     interface StringifyOptions {
         encodeURIComponent?: (str: string) => string;
     }
@@ -11,7 +12,7 @@ declare module "querystring" {
     interface ParsedUrlQuery { [key: string]: string | string[]; }
 
     interface ParsedUrlQueryInput {
-        [key: string]: string | number | boolean | ReadonlyArray<string> | ReadonlyArray<number> | ReadonlyArray<boolean> | undefined | null;
+        [key: string]: string | number | boolean | string[] | number[] | boolean[] | undefined | null;
     }
 
     function stringify(obj?: ParsedUrlQueryInput, sep?: string, eq?: string, options?: StringifyOptions): string;
@@ -26,4 +27,5 @@ declare module "querystring" {
     const decode: typeof parse;
     function escape(str: string): string;
     function unescape(str: string): string;
+}
 }

@@ -1,19 +1,21 @@
-declare module "http2" {
-    import * as events from "events";
-    import * as fs from "fs";
-    import * as net from "net";
-    import * as stream from "stream";
-    import * as tls from "tls";
-    import * as url from "url";
+declare namespace node { 
+ namespace http2 {
+    //import * as events from "events";
+    //import * as fs from "fs";
+    //import * as net from "net";
+    //import * as stream from "stream";
+    //import * as tls from "tls";
+    //import * as url from "url";
 
-    import { IncomingHttpHeaders as Http1IncomingHttpHeaders, OutgoingHttpHeaders, IncomingMessage, ServerResponse } from "http";
-    export { OutgoingHttpHeaders } from "http";
+    // let ServerResponse = ServerResponse.ServerResponse;
+
+    // export { OutgoingHttpHeaders } from "http";
 
     export interface IncomingHttpStatusHeader {
         ":status"?: number;
     }
 
-    export interface IncomingHttpHeaders extends Http1IncomingHttpHeaders {
+    export interface IncomingHttpHeaders extends http.IncomingHttpHeaders {
         ":path"?: string;
         ":method"?: string;
         ":authority"?: string;
@@ -49,7 +51,7 @@ declare module "http2" {
     }
 
     export interface ServerStreamFileResponseOptions {
-        statCheck?(stats: fs.Stats, headers: OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
+        statCheck?(stats: fs.Stats, headers: http.OutgoingHttpHeaders, statOptions: StatOptions): void | boolean;
         waitForTrailers?: boolean;
         offset?: number;
         length?: number;
@@ -72,16 +74,16 @@ declare module "http2" {
         readonly id?: number;
         readonly pending: boolean;
         readonly rstCode: number;
-        readonly sentHeaders: OutgoingHttpHeaders;
-        readonly sentInfoHeaders?: OutgoingHttpHeaders[];
-        readonly sentTrailers?: OutgoingHttpHeaders;
+        readonly sentHeaders: http.OutgoingHttpHeaders;
+        readonly sentInfoHeaders?: http.OutgoingHttpHeaders[];
+        readonly sentTrailers?: http.OutgoingHttpHeaders;
         readonly session: Http2Session;
         readonly state: StreamState;
 
         close(code?: number, callback?: () => void): void;
         priority(options: StreamPriorityOptions): void;
         setTimeout(msecs: number, callback?: () => void): void;
-        sendTrailers(headers: OutgoingHttpHeaders): void;
+        sendTrailers(headers: http.OutgoingHttpHeaders): void;
 
         addListener(event: "aborted", listener: () => void): this;
         addListener(event: "close", listener: () => void): this;
@@ -221,12 +223,12 @@ declare module "http2" {
     export interface ServerHttp2Stream extends Http2Stream {
         readonly headersSent: boolean;
         readonly pushAllowed: boolean;
-        additionalHeaders(headers: OutgoingHttpHeaders): void;
-        pushStream(headers: OutgoingHttpHeaders, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
-        pushStream(headers: OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: OutgoingHttpHeaders) => void): void;
-        respond(headers?: OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
-        respondWithFD(fd: number | fs.promises.FileHandle, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
-        respondWithFile(path: string, headers?: OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
+        additionalHeaders(headers: http.OutgoingHttpHeaders): void;
+        pushStream(headers: http.OutgoingHttpHeaders, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: http.OutgoingHttpHeaders) => void): void;
+        pushStream(headers: http.OutgoingHttpHeaders, options?: StreamPriorityOptions, callback?: (err: Error | null, pushStream: ServerHttp2Stream, headers: http.OutgoingHttpHeaders) => void): void;
+        respond(headers?: http.OutgoingHttpHeaders, options?: ServerStreamResponseOptions): void;
+        respondWithFD(fd: number | fs.promises.FileHandle, headers?: http.OutgoingHttpHeaders, options?: ServerStreamFileResponseOptions): void;
+        respondWithFile(path: string, headers?: http.OutgoingHttpHeaders, options?: ServerStreamFileResponseOptionsWithError): void;
     }
 
     // Http2Session
@@ -347,7 +349,7 @@ declare module "http2" {
     }
 
     export interface ClientHttp2Session extends Http2Session {
-        request(headers?: OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
+        request(headers?: http.OutgoingHttpHeaders, options?: ClientSessionRequestOptions): ClientHttp2Stream;
 
         addListener(event: "altsvc", listener: (alt: string, origin: string, stream: number) => void): this;
         addListener(event: "origin", listener: (origins: string[]) => void): this;
@@ -356,7 +358,7 @@ declare module "http2" {
         addListener(event: string | symbol, listener: (...args: any[]) => void): this;
 
         emit(event: "altsvc", alt: string, origin: string, stream: number): boolean;
-        emit(event: "origin", origins: ReadonlyArray<string>): boolean;
+        emit(event: "origin", origins: string[]): boolean;
         emit(event: "connect", session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket): boolean;
         emit(event: "stream", stream: ClientHttp2Stream, headers: IncomingHttpHeaders & IncomingHttpStatusHeader, flags: number): boolean;
         emit(event: string | symbol, ...args: any[]): boolean;
@@ -443,8 +445,8 @@ declare module "http2" {
     }
 
     export interface ServerSessionOptions extends SessionOptions {
-        Http1IncomingMessage?: typeof IncomingMessage;
-        Http1ServerResponse?: typeof ServerResponse;
+        Http1IncomingMessage?: typeof http.IncomingMessage;
+        Http1ServerResponse?: typeof http.ServerResponse;
         Http2ServerRequest?: typeof Http2ServerRequest;
         Http2ServerResponse?: typeof Http2ServerResponse;
     }
@@ -570,7 +572,7 @@ declare module "http2" {
     }
 
     export class Http2ServerRequest extends stream.Readable {
-        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: ReadonlyArray<string>);
+        constructor(stream: ServerHttp2Stream, headers: IncomingHttpHeaders, options: stream.ReadableOptions, rawHeaders: string[]);
 
         readonly aborted: boolean;
         readonly authority: string;
@@ -648,23 +650,23 @@ declare module "http2" {
         sendDate: boolean;
         statusCode: number;
         statusMessage: '';
-        addTrailers(trailers: OutgoingHttpHeaders): void;
+        addTrailers(trailers: http.OutgoingHttpHeaders): void;
         end(callback?: () => void): void;
         end(data: string | Uint8Array, callback?: () => void): void;
         end(data: string | Uint8Array, encoding: string, callback?: () => void): void;
         getHeader(name: string): string;
         getHeaderNames(): string[];
-        getHeaders(): OutgoingHttpHeaders;
+        getHeaders(): http.OutgoingHttpHeaders;
         hasHeader(name: string): boolean;
         removeHeader(name: string): void;
-        setHeader(name: string, value: number | string | ReadonlyArray<string>): void;
+        setHeader(name: string, value: number | string | string[]): void;
         setTimeout(msecs: number, callback?: () => void): void;
         write(chunk: string | Uint8Array, callback?: (err: Error) => void): boolean;
         write(chunk: string | Uint8Array, encoding: string, callback?: (err: Error) => void): boolean;
         writeContinue(): void;
-        writeHead(statusCode: number, headers?: OutgoingHttpHeaders): this;
-        writeHead(statusCode: number, statusMessage: string, headers?: OutgoingHttpHeaders): this;
-        createPushResponse(headers: OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
+        writeHead(statusCode: number, headers?: http.OutgoingHttpHeaders): this;
+        writeHead(statusCode: number, statusMessage: string, headers?: http.OutgoingHttpHeaders): this;
+        createPushResponse(headers: http.OutgoingHttpHeaders, callback: (err: Error | null, res: Http2ServerResponse) => void): void;
 
         addListener(event: "close", listener: () => void): this;
         addListener(event: "drain", listener: () => void): this;
@@ -944,4 +946,5 @@ declare module "http2" {
         options?: ClientSessionOptions | SecureClientSessionOptions,
         listener?: (session: ClientHttp2Session, socket: net.Socket | tls.TLSSocket) => void
     ): ClientHttp2Session;
+}
 }

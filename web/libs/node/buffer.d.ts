@@ -1,4 +1,5 @@
-declare module "buffer" {
+declare namespace node { 
+ namespace buffer {
     export const INSPECT_MAX_BYTES: number;
     export const kMaxLength: number;
     export const kStringMaxLength: number;
@@ -19,4 +20,5 @@ declare module "buffer" {
     };
 
     export { BuffType as Buffer };
+}
 }

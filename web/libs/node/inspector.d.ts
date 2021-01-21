@@ -10,8 +10,10 @@
 /**
  * The inspector module provides an API for interacting with the V8 inspector.
  */
-declare module "inspector" {
-    import { EventEmitter } from 'events';
+declare namespace node { 
+ namespace inspector {
+    // let EventEmitter = EventEmitter.EventEmitter;
+
 
     interface InspectorNotification<T> {
         method: string;
@@ -1901,7 +1903,7 @@ declare module "inspector" {
     /**
      * The inspector.Session is used for dispatching messages to the V8 inspector back-end and receiving message responses and notifications.
      */
-    class Session extends EventEmitter {
+    class Session extends node.events.EventEmitter {
         /**
          * Create a new instance of the inspector.Session class.
          * The inspector session needs to be connected through session.connect() before the messages can be dispatched to the inspector backend.
@@ -3031,4 +3033,5 @@ declare module "inspector" {
      * Return the URL of the active inspector, or `undefined` if there is none.
      */
     function url(): string | undefined;
+}
 }

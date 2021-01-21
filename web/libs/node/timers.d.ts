@@ -1,4 +1,5 @@
-declare module "timers" {
+declare namespace node { 
+ namespace timers {
     function setTimeout(callback: (...args: any[]) => void, ms: number, ...args: any[]): NodeJS.Timeout;
     namespace setTimeout {
         function __promisify__(ms: number): Promise<void>;
@@ -13,4 +14,5 @@ declare module "timers" {
         function __promisify__<T>(value: T): Promise<T>;
     }
     function clearImmediate(immediateId: NodeJS.Immediate): void;
+}
 }
