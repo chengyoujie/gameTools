@@ -1,0 +1,7 @@
+node_modules
+dist
+out
+debug
+release
+web/bin-debug
+web/bin-release

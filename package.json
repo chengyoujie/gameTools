@@ -1,0 +1,15 @@
+{
+  "name": "gametools",
+  "version": "1.0.0",
+  "description": "byh game tools",
+  "main": "dist/index.js",
+  "scripts": {
+    "publish": "node tools/publish.js"
+  },
+  "author": "cyj",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^11.2.0",
+    "electron-packager": "^15.2.0"
+  }
+}

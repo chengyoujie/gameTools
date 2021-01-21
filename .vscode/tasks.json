@@ -1,0 +1,51 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "typescript",
+			"label": "tsc",
+			"tsconfig": "tsconfig.json",
+			"problemMatcher": [
+				"$tsc"
+			],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"type": "shell",
+			"label": "egret",
+			"command": [
+				"egret build"
+			],
+			"options": {
+				"cwd": "${workspaceRoot}/web"
+			},
+			"presentation": {
+				"echo": true,
+				"reveal": "always",
+				"focus": false,
+				"panel": "shared",
+				"showReuseMessage": true,
+				"clear": false
+			},
+			"isBackground": false,
+			"problemMatcher": "$egret"
+		},
+		{
+			"type": "npm",
+			"script": "egret",
+			"problemMatcher": [],
+			"label": "mybuild",
+			"detail": "tools/build.js"
+		},
+		{
+			"label": "build",
+			"dependsOn": [
+				"tsc",
+				"mybuild"
+			]
+		}
+	]
+}

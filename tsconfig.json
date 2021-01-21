@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "outDir": "./dist/",
+    "strict": false,
+    "noImplicitUseStrict": true,
+    "alwaysStrict":false,
+    "lib": [
+      "es5",
+      "dom",
+      "es2015.promise"
+    ],
+    "types": [],
+    "sourceMap": true
+  },
+  "include": [
+    "src",
+    "libs",
+    "libs/node"
+  ]
+}
