@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="MainSkin"
+	 width="504"
+	height="469" xmlns:e="http://ns.egret.com/eui">
+	<e:Label id="lbl_test" text="Label" x="93" y="94"/>
+</e:Skin>

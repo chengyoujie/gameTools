@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="LoadingSkin"
+	 width="404"
+	height="367" xmlns:e="http://ns.egret.com/eui">
+	<e:ProgressBar id="progress_bar" width="272" height="20" skinName="skins.ProgressBarSkin" anchorOffsetX="0" anchorOffsetY="0" bottom="80" horizontalCenter="0"/>
+	<e:Image source="companylogo_png" verticalCenter="0" horizontalCenter="0"/>
+</e:Skin>

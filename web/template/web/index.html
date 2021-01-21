@@ -37,9 +37,16 @@
     </div>
 <script>
     window.node = {};//所有node相关的都放在这里
-    let useNodeModule = [
-        ""
-    ]
+    //trace_events 不支持
+    let useNodeModule = ["assert","async_hooks","buffer","child_process","cluster","console","constants","crypto","dgram","dns","domain","events","fs","http","http2","https","util","inspector","module","net","os","path","perf_hooks","process","punycode","querystring","readline","repl","stream","string_decoder","timers","tls","tty","url","v8","vm","worker_threads","zlib"];
+    // useNodeModule.push("electron")//require进来的变量
+    for(let i=0; i<useNodeModule.length; i++)
+    {
+        let mod = useNodeModule[i];
+        window.node[mod] = require(mod)
+    }
+    window.Electron = require("electron");
+    
     var loadScript = function (list, callback) {
         var loaded = 0;
         var loadNext = function () {
