@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="DropDownRenderSkinSkin"
+	 width="211"
+	height="45" xmlns:e="http://ns.egret.com/eui">
+	<e:Label id="lbl_name" text="文本" x="1" y="6" anchorOffsetX="0" width="210" textAlign="center"/>
+</e:Skin>

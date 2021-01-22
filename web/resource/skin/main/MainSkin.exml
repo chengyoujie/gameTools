@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="MainSkin"
 	 width="504"
-	height="469" xmlns:e="http://ns.egret.com/eui">
-	<e:Label id="lbl_test" text="Label" x="93" y="94"/>
+	height="469" xmlns:e="http://ns.egret.com/eui" xmlns:tools="tools.*">
+	<tools:DropDownView id="dropDown" width="253" height="43" x="-2" y="4" skinName="DropDownSkin" anchorOffsetX="0" anchorOffsetY="0"/>
 </e:Skin>

@@ -27,20 +27,20 @@ if(!txt || !txt.replace(/\/\/\s*TypeScript\s*file/gi, ""))//空的文本
     let clsName = pinfo.name.replace(/\.\w+$/, "");
     clsName = clsName.charAt(0).toUpperCase()+clsName.substr(1);
     let content = 
-    `module tools {
-        /**
-         * 
-         * ${clsName}类
-         * made by 
-         * create on ${getDateStr()} 
-        */
-        export class ${clsName} {
+`module tools {
+    /**
+     * 
+     * ${clsName}类
+     * made by 
+     * create on ${getDateStr()} 
+    */
+    export class ${clsName} {
 
-            public constructor() {
-                
-            }
-
+        public constructor() {
+            
         }
+
+    }
 }`
     fs.writeFileSync(url, content, "utf-8");
     // let selectTxt = txt.substring(selectStart, selectEnd);

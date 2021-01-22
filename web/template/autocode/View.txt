@@ -5,7 +5,7 @@ namespace tools {
      * made by ${auth}
      * create on ${time} 
     */
-    export class ${shortName}View extends eui.Component {
+    export class ${shortName}View extends Component {
 
         constructor(){
             super();
@@ -15,13 +15,16 @@ namespace tools {
         /**界面创建成功**/
         protected childrenCreated() {
             super.childrenCreated();
+        }
+        /**界面打开**/
+        onOpen(){
             ${initEvent}
         }
 
         ${eventFunction}
 
         /**界面销毁**/
-        public destroy(): void {
+        public onClose(): void {
             
         }
     }

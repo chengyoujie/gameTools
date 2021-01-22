@@ -5,7 +5,7 @@ namespace tools {
      * made by cyj
      * create on 2021-01-21 11:02:12 
     */
-    export class LoadingView extends eui.Component implements RES.PromiseTaskReporter {
+    export class LoadingView extends Component implements RES.PromiseTaskReporter {
 
         constructor(){
             super();
@@ -13,13 +13,16 @@ namespace tools {
         }
 
         /**界面创建成功**/
-        protected childrenCreated() {
-            super.childrenCreated();
+        protected onCreate() {
             let s = this;
-            s.width = s.stage.stageWidth;
-            s.height = s.stage.stageHeight;
         }
 
+        /**界面创建成功**/
+        onResize() {
+            let s = this;
+            s.width = ToolsApp.stage.stageWidth;
+            s.height = ToolsApp.stage.stageHeight;
+        }
         
         public onProgress(current: number, total: number): void {
             let s = this;
@@ -27,11 +30,16 @@ namespace tools {
             this.progress_bar.value = current;
         }
 
-        
-
-        /**界面销毁**/
-        public destroy(): void {
+        /**界面关闭**/
+        public onClose(): void {
             
         }
+
+        
+        /**界面销毁**/
+        public onDestroy(): void {
+            
+        }
+
     }
 }

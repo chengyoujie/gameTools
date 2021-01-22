@@ -13,6 +13,14 @@ namespace tools {
         constructor(){
             
         }
+        /**初始化项目  （可以控制变量的初始化顺序） */
+        public static init(){
+            localDB = new LocalDB();
+            loopMgr = new LoopMgr();
+            observer = new Observer();
+            config = new Config();
+            ui = new UIMgr();
+        }
 
     }
 }

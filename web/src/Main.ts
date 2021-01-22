@@ -17,14 +17,16 @@ class Main extends eui.UILayer {
     private async runGame() {
         await RES.loadConfig("resource/default.res.json", "resource/");
         await this.loadTheme();
-        
-        const loadingView = new tools.LoadingView();
+        tools.ToolsApp.init();
+        const loadingView = new tools.LoadingView();//显示加载界面
         this.stage.addChild(loadingView);
         await RES.loadGroup("preload", 0, loadingView);
         this.stage.removeChild(loadingView);
-        const view = new tools.MainView();
-        this.stage.addChild(view);
-        node.fs.existsSync("D:/text.txt");
+        tools.observer.post(tools.EventType.PRE_LOAD_COMPLETE);
+        loadingView.destory();
+        tools.ui.show(tools.MainView, null, tools.GameLayer.mainLayer);
+        // const view = new tools.MainView();//显示主界面
+        // this.stage.addChild(view);
     }
 
 
