@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="ToolsTypeRenderSkin"
+	 width="152"
+	height="51" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="sb_bg_sb03_png" x="2" y="-1" anchorOffsetX="0" width="148" anchorOffsetY="0" height="53"/>
+	<e:Label id="lbl_name" text="1" x="1" y="14" anchorOffsetX="0" width="148" textAlign="center"/>
+	<e:Image id="img_select" source="btn_xz_png" x="-9" y="-9" anchorOffsetX="0" width="171" anchorOffsetY="0" height="70" scale9Grid="22,22,22,22" visible="false"/>
+</e:Skin>

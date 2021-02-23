@@ -7,15 +7,16 @@ namespace tools {
     */
     export class ${shortName}View extends Component {
 
-        constructor(){
-            super();
+        constructor(opt?: ShowOptions){
+            super(opt);
             this.skinName = '${skinName}';
         }
 
         /**界面创建成功**/
-        protected childrenCreated() {
-            super.childrenCreated();
+        protected onCreate() {
+
         }
+
         /**界面打开**/
         onOpen(){
             ${initEvent}

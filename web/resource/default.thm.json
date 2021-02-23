@@ -16,6 +16,7 @@
 	},
 	"autoGenerateExmlsList": true,
 	"exmls": [
+		"resource/skin/common/AlertSkin.exml",
 		"resource/skin/common/DropDownRenderSkinSkin.exml",
 		"resource/skin/common/DropDownSkin.exml",
 		"resource/skin/component/ButtonSkin.exml",
@@ -32,7 +33,11 @@
 		"resource/skin/component/VScrollBarSkin.exml",
 		"resource/skin/component/VSliderSkin.exml",
 		"resource/skin/loading/LoadingSkin.exml",
-		"resource/skin/main/MainSkin.exml"
+		"resource/skin/main/MainSkin.exml",
+		"resource/skin/main/ToolsTypeRenderSkin.exml",
+		"resource/skin/tips/CmdTipSkin.exml",
+		"resource/skin/tools/movieClipPack/MovieClipPackMainSkin.exml",
+		"resource/skin/tools/textureMerger/TextureMergerMainSkin.exml"
 	],
 	"path": "resource/default.thm.json"
 }

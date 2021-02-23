@@ -1,3 +1,6 @@
+/**
+ * 将node的声明修改增加
+ */
 var fs = require("fs")
 var path = require("path")
 

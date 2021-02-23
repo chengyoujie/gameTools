@@ -1,0 +1,31 @@
+namespace game {
+    /**
+     * AutoCodeEui 生成的界面 
+     * euiPath:${shortSkinPath}  
+     * made by ${auth}
+     * create on ${time} 
+    */
+    export class ${shortName}View extends eui.Component {
+
+        constructor(){
+            super();
+            this.skinName = '${skinName}';
+        }
+
+        /**界面创建成功**/
+        protected childrenCreated() {
+            super.childrenCreated();
+            ${initEvent}
+        }
+
+        ${eventFunction}
+
+        /**界面销毁**/
+        public destroy(): void {
+            
+        }
+    }
+}
+
+//以下是方便配置模板内容的， 配置好模板后需要删掉
+${varDes}

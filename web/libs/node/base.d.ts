@@ -30,7 +30,6 @@
 /// <reference path="string_decoder.d.ts" />
 /// <reference path="timers.d.ts" />
 /// <reference path="tls.d.ts" />
-/// <reference path="trace_events.d.ts" />
 /// <reference path="tty.d.ts" />
 /// <reference path="url.d.ts" />
 /// <reference path="util.d.ts" />

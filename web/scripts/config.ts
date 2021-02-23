@@ -27,36 +27,34 @@ const config: ResourceManagerConfig = {
                     // }),
                     new ExmlPlugin('debug'), // 非 EUI 项目关闭此设置
                     // new EuiCompilerPlugin(),//新的 eui 编译器
-                    // new IncrementCompilePlugin(),
-                    new WebpackDevServerPlugin({ //新的 Webpack 编译器
-                        libraryType: "debug",
-                        defines: { DEBUG: true, RELEASE: false },
-                        typescript: { mode: 'legacy'},
-                        html:{
-                            templateFilePath:"template/web/index.html"
-                        },
-                        port:3000,
-                        open: false
-                    }),
+                    new IncrementCompilePlugin(),
+                    // new WebpackDevServerPlugin({ //新的 Webpack 编译器
+                    //     libraryType: "debug",
+                    //     defines: { DEBUG: true, RELEASE: false },
+                    //     typescript: { mode: 'legacy'},
+                    //     html:{
+                    //         templateFilePath:"template/web/index.html"
+                    //     },
+                    //     open: true
+                    // }),
                 ]
             }
         }
         else if (command == 'publish') {
-            // const outputDir = `bin-release/web/${version}`;
-            const outputDir = `./../release/web`;
+            const outputDir = `bin-release/web/${version}`;
             return {
                 outputDir,
                 commands: [
-                    new CustomPlugin(),
-                    // new CompilePlugin({ libraryType: "release", defines: { DEBUG: false, RELEASE: true } }),
-                    new WebpackBundlePlugin({ //新的 Webpack 编译器
-                        libraryType: "release",
-                        defines: { DEBUG: false, RELEASE: true },
-                        typescript: { mode: 'legacy'},
-                        html:{
-                            templateFilePath:"template/web/index.html"
-                        }
-                    }),
+                    // new CustomPlugin(),
+                    new CompilePlugin({ libraryType: "release", defines: { DEBUG: false, RELEASE: true } }),
+                    // new WebpackBundlePlugin({ //新的 Webpack 编译器
+                    //     libraryType: "release",
+                    //     defines: { DEBUG: false, RELEASE: true },
+                    //     typescript: { mode: 'legacy'},
+                    //     html:{
+                    //         templateFilePath:"template/web/index.html"
+                    //     },
+                    // }),
                     new ExmlPlugin('commonjs'), // 非 EUI 项目关闭此设置
                     // new EuiCompilerPlugin(),//新的 eui 编译器
                     new UglifyPlugin([{

@@ -2,5 +2,7 @@
 <e:Skin class="DropDownRenderSkinSkin"
 	 width="211"
 	height="45" xmlns:e="http://ns.egret.com/eui">
-	<e:Label id="lbl_name" text="文本" x="1" y="6" anchorOffsetX="0" width="210" textAlign="center"/>
+	<e:Image source="ph_bg_wdpmd_png" y="4" anchorOffsetX="0" width="214" anchorOffsetY="0" height="55" scale9Grid="23,23,23,23"/>
+	<e:Label id="lbl_name" text="文本" x="1" y="15" anchorOffsetX="0" width="210" textAlign="center"/>
+	<e:Image id="img_select" source="ns_panel_xz_png" x="3" y="2" scale9Grid="35,35,35,35" anchorOffsetX="0" width="209" anchorOffsetY="0" height="55" visible="false"/>
 </e:Skin>

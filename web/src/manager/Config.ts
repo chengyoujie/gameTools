@@ -10,8 +10,12 @@ module tools {
         private _userConfig:UserConfig;
         private _userConfigPath:string = "";
         private _projectConfig:{[key:string]:ProjectConfig};
-        /**当前选择的项目 */
+        /**当前选择的项目 对应 resource/config/project.json*/
         private _curProject:ProjectConfig;
+        /**工具 对应 resource/config/project.json*/
+        private _toolsConfig:ToolsData;
+        /**工具每一项数据id对应的数据 字典*/
+        private _toolsItemDataDic:{[id:number]:ToolsItemData};
 
         public constructor() {
             let s = this;
@@ -27,6 +31,7 @@ module tools {
         {
             let s = this;
             s._projectConfig = RES.getRes("project_json")
+            s._toolsConfig = RES.getRes("toolsData_json")
         }
         /**当前选择的项目 */
         public get curProjectConfig(){
@@ -43,6 +48,25 @@ module tools {
         /**项目的配置 */
         public get projectConfig(){
             return this._projectConfig;
+        }
+        /**工具对应的数据 */
+        public get toolsConfig(){
+            return this._toolsConfig;
+        }
+        /**根据工具的id获取工具数据 */
+        public getToolsItemDataById(id:ToolsId):ToolsItemData
+        {
+            let s = this;
+            if(s._toolsItemDataDic){
+                return s._toolsItemDataDic[id];
+            }
+            s._toolsItemDataDic = {};
+            for(let i=0; i<s._toolsConfig.tools.length; i++)
+            {
+                let item = s._toolsConfig.tools[i];
+                s._toolsItemDataDic[item.id] = item;
+            }
+            return s._toolsItemDataDic[id];
         }
 
         /**用户的配置 */
@@ -101,27 +125,6 @@ module tools {
     }
 
 
-    /**用户的配置 */
-    export interface UserConfig{
-        /**记录用户的本地配置 */
-        localPath:{[project:string]:ProjectLocalPath};
-    }
-    /**用户的项目本地路径 */
-    export interface ProjectLocalPath{
-
-        /**用户的数据配置 */
-        dataPath?:string;
-        /**用户的web目录路径 */
-        webPath?:string;
-        /**用户的客户端代码目录位置 */
-        codePath?:string;
-    }
-
-    /**项目配置 */
-    export interface ProjectConfig{
-        id:string;
-        name:string;
-    }
 
 
     export let config:Config;

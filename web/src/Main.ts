@@ -2,14 +2,17 @@
 
 class Main extends eui.UILayer {
 
+    constructor(){
+        super();
+    }
 
     protected createChildren(): void {
         super.createChildren();
         //inject the custom material parser
         //注入自定义的素材解析器
-        let assetAdapter = new AssetAdapter();
+        let assetAdapter = new tools.AssetAdapter();
         egret.registerImplementation("eui.IAssetAdapter", assetAdapter);
-        egret.registerImplementation("eui.IThemeAdapter", new ThemeAdapter());
+        egret.registerImplementation("eui.IThemeAdapter", new tools.ThemeAdapter());
         tools.ToolsApp.stage = egret.sys.$TempStage;
         this.runGame();
     }

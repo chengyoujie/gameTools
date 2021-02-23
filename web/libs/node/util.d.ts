@@ -113,7 +113,7 @@ declare namespace node {
         function isArrayBuffer(object: any): object is ArrayBuffer;
         function isAsyncFunction(object: any): boolean;
         function isBooleanObject(object: any): object is Boolean;
-        function isBoxedPrimitive(object: any): object is (Number | Boolean | String | Symbol /* | Object(BigInt) | Object(Symbol) */);
+        function isBoxedPrimitive(object: any): object is (Number | Boolean | String /* | Object(BigInt) | Object(Symbol) */);
         function isDataView(object: any): object is DataView;
         function isDate(object: any): object is Date;
         function isExternal(object: any): boolean;

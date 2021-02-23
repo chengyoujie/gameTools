@@ -1,0 +1,6 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="TextureMergerMainSkin"
+	 width="1920"
+	height="1000" xmlns:e="http://ns.egret.com/eui">
+	<e:Image source="wjzt_icn_suo_png" horizontalCenter="0" verticalCenter="0"/>
+</e:Skin>

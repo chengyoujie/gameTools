@@ -3,12 +3,11 @@
 // Definitions by: The Electron Team <https://github.com/electron/electron>
 // Definitions: https://github.com/electron/electron-typescript-definitions
 
-/// <reference types="node" />
 
 type GlobalEvent = Event;
 
 declare namespace Electron {
-  const NodeEventEmitter: typeof import('events').EventEmitter;
+  const NodeEventEmitter: typeof node.events.EventEmitter;
 
   class Accelerator extends String {
 
@@ -75,7 +74,7 @@ declare namespace Electron {
                                                    /**
                                                     * Contains app-specific state stored by the activity.
                                                     */
-                                                   userInfo: unknown) => void): this;
+                                                   userInfo: any) => void): this;
     once(event: 'activity-was-continued', listener: (event: Event,
                                                    /**
                                                     * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -84,7 +83,7 @@ declare namespace Electron {
                                                    /**
                                                     * Contains app-specific state stored by the activity.
                                                     */
-                                                   userInfo: unknown) => void): this;
+                                                   userInfo: any) => void): this;
     addListener(event: 'activity-was-continued', listener: (event: Event,
                                                    /**
                                                     * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -93,7 +92,7 @@ declare namespace Electron {
                                                    /**
                                                     * Contains app-specific state stored by the activity.
                                                     */
-                                                   userInfo: unknown) => void): this;
+                                                   userInfo: any) => void): this;
     removeListener(event: 'activity-was-continued', listener: (event: Event,
                                                    /**
                                                     * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -102,7 +101,7 @@ declare namespace Electron {
                                                    /**
                                                     * Contains app-specific state stored by the activity.
                                                     */
-                                                   userInfo: unknown) => void): this;
+                                                   userInfo: any) => void): this;
     /**
      * Emitted before the application starts closing its windows. Calling
      * `event.preventDefault()` will prevent the default behavior, which is terminating
@@ -225,7 +224,7 @@ declare namespace Electron {
                                               /**
                                                * Contains app-specific state stored by the activity on another device.
                                                */
-                                              userInfo: unknown) => void): this;
+                                              userInfo: any) => void): this;
     once(event: 'continue-activity', listener: (event: Event,
                                               /**
                                                * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -234,7 +233,7 @@ declare namespace Electron {
                                               /**
                                                * Contains app-specific state stored by the activity on another device.
                                                */
-                                              userInfo: unknown) => void): this;
+                                              userInfo: any) => void): this;
     addListener(event: 'continue-activity', listener: (event: Event,
                                               /**
                                                * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -243,7 +242,7 @@ declare namespace Electron {
                                               /**
                                                * Contains app-specific state stored by the activity on another device.
                                                */
-                                              userInfo: unknown) => void): this;
+                                              userInfo: any) => void): this;
     removeListener(event: 'continue-activity', listener: (event: Event,
                                               /**
                                                * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -252,7 +251,7 @@ declare namespace Electron {
                                               /**
                                                * Contains app-specific state stored by the activity on another device.
                                                */
-                                              userInfo: unknown) => void): this;
+                                              userInfo: any) => void): this;
     /**
      * Emitted during Handoff when an activity from a different device fails to be
      * resumed.
@@ -664,7 +663,7 @@ You should call `event.preventDefault()` if you want to handle this event.
                                                   /**
                                                    * Contains app-specific state stored by the activity.
                                                    */
-                                                  userInfo: unknown) => void): this;
+                                                  userInfo: any) => void): this;
     once(event: 'update-activity-state', listener: (event: Event,
                                                   /**
                                                    * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -673,7 +672,7 @@ You should call `event.preventDefault()` if you want to handle this event.
                                                   /**
                                                    * Contains app-specific state stored by the activity.
                                                    */
-                                                  userInfo: unknown) => void): this;
+                                                  userInfo: any) => void): this;
     addListener(event: 'update-activity-state', listener: (event: Event,
                                                   /**
                                                    * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -682,7 +681,7 @@ You should call `event.preventDefault()` if you want to handle this event.
                                                   /**
                                                    * Contains app-specific state stored by the activity.
                                                    */
-                                                  userInfo: unknown) => void): this;
+                                                  userInfo: any) => void): this;
     removeListener(event: 'update-activity-state', listener: (event: Event,
                                                   /**
                                                    * A string identifying the activity. Maps to `NSUserActivity.activityType`.
@@ -691,7 +690,7 @@ You should call `event.preventDefault()` if you want to handle this event.
                                                   /**
                                                    * Contains app-specific state stored by the activity.
                                                    */
-                                                  userInfo: unknown) => void): this;
+                                                  userInfo: any) => void): this;
     /**
      * Emitted when a new webContents is created.
      */
@@ -901,7 +900,7 @@ You should seek to use the `steal` option as sparingly as possible.
      * Using `basic` should be preferred if only basic information like `vendorId` or
      * `driverId` is needed.
      */
-    getGPUInfo(infoType: 'basic' | 'complete'): Promise<unknown>;
+    getGPUInfo(infoType: 'basic' | 'complete'): Promise<any>;
     /**
      * * `minItems` Integer - The minimum number of items that will be shown in the
      * Jump List (for a more detailed description of this value see the MSDN docs).
@@ -4158,9 +4157,9 @@ Send given command to the debugging target.
     // Docs: https://electronjs.org/docs/api/structures/display
 
     /**
-     * Can be `available`, `unavailable`, `unknown`.
+     * Can be `available`, `unavailable`, `any`.
      */
-    accelerometerSupport: ('available' | 'unavailable' | 'unknown');
+    accelerometerSupport: ('available' | 'unavailable' | 'any');
     bounds: Rectangle;
     /**
      * The number of bits per pixel.
@@ -4197,9 +4196,9 @@ Send given command to the debugging target.
     scaleFactor: number;
     size: Size;
     /**
-     * Can be `available`, `unavailable`, `unknown`.
+     * Can be `available`, `unavailable`, `any`.
      */
-    touchSupport: ('available' | 'unavailable' | 'unknown');
+    touchSupport: ('available' | 'unavailable' | 'any');
     workArea: Rectangle;
     workAreaSize: Size;
   }
@@ -4411,7 +4410,7 @@ Send given command to the debugging target.
     /**
      * The total size in bytes of the download item.
      * 
-If the size is unknown, it returns 0.
+If the size is any, it returns 0.
      */
     getTotalBytes(): number;
     /**
@@ -5910,13 +5909,13 @@ Starts recording network events to `path`.
     addListener(event: 'unlock-screen', listener: Function): this;
     removeListener(event: 'unlock-screen', listener: Function): this;
     /**
-     * The system's current state. Can be `active`, `idle`, `locked` or `unknown`.
+     * The system's current state. Can be `active`, `idle`, `locked` or `any`.
      *
      * Calculate the system idle state. `idleThreshold` is the amount of time (in
      * seconds) before considered idle.  `locked` is available on supported systems
      * only.
      */
-    getSystemIdleState(idleThreshold: number): ('active' | 'idle' | 'locked' | 'unknown');
+    getSystemIdleState(idleThreshold: number): ('active' | 'idle' | 'locked' | 'any');
     /**
      * Idle time in seconds
 
@@ -6027,7 +6026,7 @@ Calculate system idle time in seconds.
      *
      * @platform win32
      */
-    integrityLevel?: ('untrusted' | 'low' | 'medium' | 'high' | 'unknown');
+    integrityLevel?: ('untrusted' | 'low' | 'medium' | 'high' | 'any');
     /**
      * Memory information for the process.
      */
@@ -6051,7 +6050,7 @@ Calculate system idle time in seconds.
     /**
      * Process type. One of the following values:
      */
-    type: ('Browser' | 'Tab' | 'Utility' | 'Zygote' | 'Sandbox helper' | 'GPU' | 'Pepper Plugin' | 'Pepper Plugin Broker' | 'Unknown');
+    type: ('Browser' | 'Tab' | 'Utility' | 'Zygote' | 'Sandbox helper' | 'GPU' | 'Pepper Plugin' | 'Pepper Plugin Broker' | 'any');
   }
 
   interface Product {
@@ -6601,7 +6600,7 @@ e.g.
      * A ServiceWorkerInfo object where the keys are the service worker version ID and
      * the values are the information about that service worker.
      */
-    getAllRunning(): Record<number, ServiceWorkerInfo>;
+    getAllRunning(): Record<any, ServiceWorkerInfo>;
     /**
      * Information about this service worker
      *
@@ -7337,7 +7336,7 @@ Returns an object with system animation settings.
      */
     getAnimationSettings(): AnimationSettings;
     /**
-     * | `null` - Can be `dark`, `light` or `unknown`.
+     * | `null` - Can be `dark`, `light` or `any`.
      *
      * Gets the macOS appearance setting that you have declared you want for your
      * application, maps to NSApplication.appearance. You can use the
@@ -7346,7 +7345,7 @@ Returns an object with system animation settings.
      * @deprecated
      * @platform darwin
      */
-    getAppLevelAppearance(): ('dark' | 'light' | 'unknown');
+    getAppLevelAppearance(): ('dark' | 'light' | 'any');
     /**
      * The system color setting in RGB hexadecimal form (`#ABCDEF`). See the Windows
      * docs and the macOS docs for more details.
@@ -7360,16 +7359,16 @@ Returns an object with system animation settings.
      */
     getColor(color: '3d-dark-shadow' | '3d-face' | '3d-highlight' | '3d-light' | '3d-shadow' | 'active-border' | 'active-caption' | 'active-caption-gradient' | 'app-workspace' | 'button-text' | 'caption-text' | 'desktop' | 'disabled-text' | 'highlight' | 'highlight-text' | 'hotlight' | 'inactive-border' | 'inactive-caption' | 'inactive-caption-gradient' | 'inactive-caption-text' | 'info-background' | 'info-text' | 'menu' | 'menu-highlight' | 'menubar' | 'menu-text' | 'scrollbar' | 'window' | 'window-frame' | 'window-text' | 'alternate-selected-control-text' | 'control-background' | 'control' | 'control-text' | 'disabled-control-text' | 'find-highlight' | 'grid' | 'header-text' | 'highlight' | 'keyboard-focus-indicator' | 'label' | 'link' | 'placeholder-text' | 'quaternary-label' | 'scrubber-textured-background' | 'secondary-label' | 'selected-content-background' | 'selected-control' | 'selected-control-text' | 'selected-menu-item-text' | 'selected-text-background' | 'selected-text' | 'separator' | 'shadow' | 'tertiary-label' | 'text-background' | 'text' | 'under-page-background' | 'unemphasized-selected-content-background' | 'unemphasized-selected-text-background' | 'unemphasized-selected-text' | 'window-background' | 'window-frame-text'): string;
     /**
-     * Can be `dark`, `light` or `unknown`.
+     * Can be `dark`, `light` or `any`.
      *
      * Gets the macOS appearance setting that is currently applied to your application,
      * maps to NSApplication.effectiveAppearance
      *
      * @platform darwin
      */
-    getEffectiveAppearance(): ('dark' | 'light' | 'unknown');
+    getEffectiveAppearance(): ('dark' | 'light' | 'any');
     /**
-     * Can be `not-determined`, `granted`, `denied`, `restricted` or `unknown`.
+     * Can be `not-determined`, `granted`, `denied`, `restricted` or `any`.
      *
      * This user consent was not required on macOS 10.13 High Sierra or lower so this
      * method will always return `granted`. macOS 10.14 Mojave or higher requires
@@ -7382,7 +7381,7 @@ Returns an object with system animation settings.
      *
      * @platform win32,darwin
      */
-    getMediaAccessStatus(mediaType: 'microphone' | 'camera' | 'screen'): ('not-determined' | 'granted' | 'denied' | 'restricted' | 'unknown');
+    getMediaAccessStatus(mediaType: 'microphone' | 'camera' | 'screen'): ('not-determined' | 'granted' | 'denied' | 'restricted' | 'any');
     /**
      * The standard system color formatted as `#RRGGBBAA`.
      *
@@ -7546,7 +7545,7 @@ Some popular `key` and `type`s are:
      *
      * @platform darwin
      */
-    subscribeLocalNotification(event: string, callback: (event: string, userInfo: Record<string, unknown>, object: string) => void): number;
+    subscribeLocalNotification(event: string, callback: (event: string, userInfo: Record<string, any>, object: string) => void): number;
     /**
      * The ID of this subscription
      *
@@ -7569,7 +7568,7 @@ Some popular `key` and `type`s are:
      *
      * @platform darwin
      */
-    subscribeNotification(event: string, callback: (event: string, userInfo: Record<string, unknown>, object: string) => void): number;
+    subscribeNotification(event: string, callback: (event: string, userInfo: Record<string, any>, object: string) => void): number;
     /**
      * Same as `subscribeNotification`, but uses
      * `NSWorkspace.sharedWorkspace.notificationCenter`. This is necessary for events
@@ -7577,7 +7576,7 @@ Some popular `key` and `type`s are:
      *
      * @platform darwin
      */
-    subscribeWorkspaceNotification(event: string, callback: (event: string, userInfo: Record<string, unknown>, object: string) => void): void;
+    subscribeWorkspaceNotification(event: string, callback: (event: string, userInfo: Record<string, any>, object: string) => void): void;
     /**
      * Same as `unsubscribeNotification`, but removes the subscriber from
      * `NSNotificationCenter`.
@@ -7599,28 +7598,28 @@ Some popular `key` and `type`s are:
      */
     unsubscribeWorkspaceNotification(id: number): void;
     /**
-     * A `String` property that can be `dark`, `light` or `unknown`. It determines the
+     * A `String` property that can be `dark`, `light` or `any`. It determines the
      * macOS appearance setting for your application. This maps to values in:
      * NSApplication.appearance. Setting this will override the system default as well
      * as the value of `getEffectiveAppearance`.
      *
      * Possible values that can be set are `dark` and `light`, and possible return
-     * values are `dark`, `light`, and `unknown`.
+     * values are `dark`, `light`, and `any`.
      * 
 This property is only available on macOS 10.14 Mojave or newer.
      *
      * @platform darwin
      */
-    appLevelAppearance: ('dark' | 'light' | 'unknown');
+    appLevelAppearance: ('dark' | 'light' | 'any');
     /**
-     * A `String` property that can be `dark`, `light` or `unknown`.
+     * A `String` property that can be `dark`, `light` or `any`.
      *
      * Returns the macOS appearance setting that is currently applied to your
      * application, maps to NSApplication.effectiveAppearance
      *
      * @platform darwin
      */
-    readonly effectiveAppearance: ('dark' | 'light' | 'unknown');
+    readonly effectiveAppearance: ('dark' | 'light' | 'any');
   }
 
   interface Task {
@@ -11995,7 +11994,7 @@ See webContents.sendInputEvent for detailed description of `event` object.
     /**
      * Process type. One of the following values:
      */
-    type: ('Utility' | 'Zygote' | 'Sandbox helper' | 'GPU' | 'Pepper Plugin' | 'Pepper Plugin Broker' | 'Unknown');
+    type: ('Utility' | 'Zygote' | 'Sandbox helper' | 'GPU' | 'Pepper Plugin' | 'Pepper Plugin Broker' | 'any');
     /**
      * The reason the child process is gone. Possible values:
      */
@@ -13045,9 +13044,9 @@ See webContents.sendInputEvent for detailed description of `event` object.
      */
     securityOrigin: string;
     /**
-     * The type of media access being requested, can be `video`, `audio` or `unknown`
+     * The type of media access being requested, can be `video`, `audio` or `any`
      */
-    mediaType: ('video' | 'audio' | 'unknown');
+    mediaType: ('video' | 'audio' | 'any');
     /**
      * The last URL the requesting frame loaded
      */
@@ -15075,8 +15074,7 @@ interface File {
 }
 
 declare module 'original-fs' {
-  import * as fs from 'fs';
-  export = fs;
+  export = node.fs;
 }
 
 interface Document {

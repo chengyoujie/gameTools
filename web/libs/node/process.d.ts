@@ -1,10 +1,10 @@
 declare namespace node { 
- namespace process {
-    //import * as tty from "tty";
+    namespace process {
+        //import * as tty from "tty";
 
 
-    //export = process;
-}
+        // export = process;
+    }
 }
 
 declare namespace NodeJS {

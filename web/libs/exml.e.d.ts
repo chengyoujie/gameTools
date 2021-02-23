@@ -1,3 +1,5 @@
+declare class AlertSkin extends eui.Skin{
+}
 declare class DropDownRenderSkinSkin extends eui.Skin{
 }
 declare class DropDownSkin extends eui.Skin{
@@ -57,4 +59,12 @@ declare module skins{
 declare class LoadingSkin extends eui.Skin{
 }
 declare class MainSkin extends eui.Skin{
+}
+declare class ToolsTypeRenderSkin extends eui.Skin{
+}
+declare class CmdTipSkin extends eui.Skin{
+}
+declare class MovieClipPackMainSkin extends eui.Skin{
+}
+declare class TextureMergerMainSkin extends eui.Skin{
 }

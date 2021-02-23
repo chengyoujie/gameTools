@@ -1,0 +1,48 @@
+{
+    "defaultCreateIndex":0,
+    "skinRootPath":"resource/skin/",
+    "codeRootPath":"src/module/",
+    "create":
+    [   
+        {"nameHas":"View",  "useTemplate":"1,2", "useReg":false},
+        {"nameHas":"Render", "useTemplate":"3,4", "useReg":false}
+    ],
+    
+    "template":
+    {
+        "1":{"id":1,    "name":"UI",        "file":"UI.txt",            "outdir":"${workspace}/src/declare/ui",            "override":true,     "checkfloder":false,   "fileType":"d.ts"},
+        "2":{"id":2,    "name":"View",      "file":"View.txt",          "outdir":"",                            "override":false,   "checkfloder":false,   "fileType":"ts"},
+        "3":{"id":3,    "name":"RenderUI",  "file":"RenderUI.txt",      "outdir":"${workspace}/src/declare/ui",            "override":true,     "checkfloder":false,   "fileType":"d.ts"},
+        "4":{"id":4,    "name":"Render",    "file":"Render.txt",        "outdir":"",                            "override":false,   "checkfloder":false,   "fileType":"ts"},
+        "5":{"id":5,    "name":"Module",    "file":"Module.txt",        "outdir":"${workspace}/src/model/${parentDir}",    "override":false,   "checkfloder":true,   "fileType":"ts"}
+    },
+    "timeFormat":"yyyy-MM-dd hh:mm:ss",
+
+    "idVisit":[
+        {
+            "nameHas":"btn",
+            "typeHas":"eui.Button",
+            "code1":"\n\t\t\tthis.${id}.addEventListener(egret.TouchEvent.TOUCH_TAP, this.handleClk${ShortId}, this)",
+            "exportCode1":"initEvent",
+            "code2":"\n\t\t/**${id}点击事件处理**/\n\t\tprivate handleClk${ShortId}(){\n\t\t\n\t\t}\n\t\t",
+            "exportCode2":"eventFunction"
+        }
+    ],
+    "fileVisit":[
+        {
+            "nameHas":"\\.ts$",
+            "useReg":true,
+            "exec":"node",
+            "execWorkSpace":"",
+            "showLog":true,
+            "execParam":"${workspace}/scripts/autocode/onTsFile.js ${filePath} ${selectStart} ${selectEnd}"
+        },
+        {
+            "nameHas":"index.html",
+            "useReg":false,
+            "execWorkSpace":"",
+            "exec":"${filePath}",
+            "execParam":""
+        }
+    ]
+}

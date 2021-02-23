@@ -21,6 +21,7 @@ namespace tools {
         onOpen(){
             let s = this;
             s.btn_down.clk(s.handleClkDown, s);
+            s.lbl_name.clk(s.handleClkDown, s);
             s.list_drop.on(eui.ItemTapEvent.ITEM_TAP, s.handleItemChange, s);
         }
 
@@ -31,14 +32,43 @@ namespace tools {
             {
                 s.lbl_name.text = data.label;
             }
-            s.list_drop.visible = false;
+            s.setDropListShow(false);
             s.post(eui.ItemTapEvent.ITEM_TAP);
         }
         
 		/**btn_down点击事件处理**/
 		private handleClkDown(){
             let s = this;
-            s.list_drop.visible = !s.list_drop.visible;
+            s.setDropListShow(!s.group_drop.visible);
+        }
+
+        /**设置dropList是否显示 */
+        private setDropListShow(isShow:boolean)
+        {
+            let s = this;
+            if(s.group_drop.visible == isShow)return;
+            s.group_drop.visible = isShow;
+            if(isShow)
+            {
+                ToolsApp.stage.on(egret.TouchEvent.TOUCH_TAP, s.handleTouchStage, s);
+            }else{
+                ToolsApp.stage.off(egret.TouchEvent.TOUCH_TAP, s.handleTouchStage, s);
+
+            }
+        }
+        /**点击舞台 */
+        private handleTouchStage(e:egret.TouchEvent){
+            let s = this;
+            if(!s.group_drop.visible)return;
+            let globalListPos = s.localToGlobal(0, 0, SharePoint);
+            ShareRect.x = globalListPos.x;
+            ShareRect.y = globalListPos.y;
+            ShareRect.width = s.width;
+            ShareRect.height = s.height;
+            if(!ShareRect.contains(e.stageX, e.stageY))
+            {
+                s.setDropListShow(false)
+            }
         }
 
         public set selectIndex(value:number){
@@ -96,6 +126,9 @@ namespace tools {
                 }
             }
             s.list_drop.setDataArr(list);
+            let len = list?list.length:0;
+            let layout = s.list_drop.layout as eui.VerticalLayout;
+            s.img_listBg.height = len*(s.list_drop.getVirtualElementAt(0).height+layout.gap);
         }
 
         

@@ -78,7 +78,7 @@ interface Iterable<T> { }
 // interface IteratorResult<T> { }
 interface AsyncIterable<T> { }
 interface Iterator<T> {
-    next(value?: any): IteratorResult<T>;
+    next(value?: any): any;
 }
 interface IterableIterator<T> { }
 interface AsyncIterableIterator<T> {}

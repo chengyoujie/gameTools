@@ -9,7 +9,7 @@ declare namespace node {
 
     const isMainThread: boolean;
     const parentPort: null | MessagePort;
-    const SHARE_ENV: unique symbol;
+    const SHARE_ENV:any;
     const threadId: number;
     const workerData: any;
 

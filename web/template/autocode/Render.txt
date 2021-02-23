@@ -5,7 +5,7 @@ namespace tools {
      * made by ${auth}
      * create on ${time} 
     */
-    export class ${shortName}Render extends eui.ItemRenderer {
+    export class ${shortName}Render extends BaseRender {
     
         constructor() {
             super();

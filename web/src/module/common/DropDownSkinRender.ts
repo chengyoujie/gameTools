@@ -5,7 +5,7 @@ namespace tools {
      * made by cyj
      * create on 2021-01-21 19:47:38 
     */
-    export class DropDownSkinRender extends eui.ItemRenderer {
+    export class DropDownSkinRender extends BaseRender {
     
         constructor() {
             super();

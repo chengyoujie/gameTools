@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="AlertSkin"
+	 width="350"
+	height="250" xmlns:e="http://ns.egret.com/eui" xmlns:tools="tools.*">
+	<e:Image source="border_png" anchorOffsetX="0" width="350" anchorOffsetY="0" height="250"/>
+	<e:Image source="header_png" height="35" anchorOffsetX="0" width="350"/>
+	<e:Label id="lbl_title" text="提示" y="8" width="350" textAlign="center" textColor="0xFEF3D3" size="25"/>
+	<e:Label id="lbl_msg" text="Label" x="-1" y="49" anchorOffsetX="0" width="349" anchorOffsetY="0" height="140" verticalAlign="middle" textAlign="center" textColor="0x000000"/>
+	<tools:ScaleButton id="btn_ok" label="确认" y="195.5" scaleX="0.8" scaleY="0.8" x="104"/>
+	<tools:ScaleButton label="取消" y="192.5" scaleX="0.8" scaleY="0.8" x="103" id="btn_cancle" visible="false"/>
+</e:Skin>

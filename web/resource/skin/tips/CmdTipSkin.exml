@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="CmdTipSkin" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="img_bg" width="401" height="203" x="0" y="0" anchorOffsetX="0" anchorOffsetY="0" source="ph_bg_wdpmd_png" scale9Grid="8,8,53,53"/>
+	<e:Label id="lbl_msg" text="Label" y="2" size="25" textColor="0x5fe81b"/>
+</e:Skin>

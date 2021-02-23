@@ -17,6 +17,11 @@ namespace tools {
             let s = this;
         }
 
+        onOpen(){
+            let s = this;
+            s.onResize();
+        }
+
         /**界面创建成功**/
         onResize() {
             let s = this;

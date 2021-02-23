@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<e:Skin class="MovieClipPackMainSkin"
+	 width="1920"
+	height="1000" xmlns:e="http://ns.egret.com/eui" xmlns:tools="tools.*">
+	<tools:ScaleButton id="btn_oper" label="选择文件" horizontalCenter="0" verticalCenter="0"/>
+	<e:Label id="lbl_msg" text="Label" x="665" anchorOffsetX="0" width="636" anchorOffsetY="0" height="303" verticalCenter="229.5"/>
+</e:Skin>

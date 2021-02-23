@@ -185,5 +185,5 @@ namespace tools {
         //---------------------------------------------------↑对外接口↑--------------------------------------------------------------
     }
     interface TmDoData{ fun: Function; thisObject:any; st: number; delay:number; invalid:boolean; loop: number; params:any[]; id:number}
-    export let loopMgr;// = new LoopMgr();
+    export let loopMgr:LoopMgr;// = new LoopMgr();
 }

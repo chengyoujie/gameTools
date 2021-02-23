@@ -1,6 +1,14 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="MainSkin"
-	 width="504"
-	height="469" xmlns:e="http://ns.egret.com/eui" xmlns:tools="tools.*">
-	<tools:DropDownView id="dropDown" width="253" height="43" x="-2" y="4" skinName="DropDownSkin" anchorOffsetX="0" anchorOffsetY="0"/>
+	 width="1920"
+	height="1000" xmlns:e="http://ns.egret.com/eui" xmlns:tools="tools.*">
+	<e:Group id="group_tools" anchorOffsetX="0" anchorOffsetY="0" height="950" width="1920" x="0" y="0">
+	</e:Group>
+	<e:Group id="group_type" x="0" top="0" bottom="0">
+		<e:Scroller id="scroll_types" width="155" x="3.0000000000002274" anchorOffsetX="0" anchorOffsetY="0" top="82" bottom="0" y="50" scaleX="1" scaleY="1">
+			<e:List id="list_tools" itemRendererSkinName="ToolsTypeRenderSkin" anchorOffsetY="0" height="887" y="13"/>
+		</e:Scroller>
+		<tools:DropDownView id="dropdown_projectSelect" width="167" height="43" x="0" y="35" skinName="DropDownSkin" anchorOffsetX="0" anchorOffsetY="0"/>
+	</e:Group>
+	<e:Image id="img_showHideTools" source="zgns_icn_zs_png" x="16" y="16" anchorOffsetX="16" anchorOffsetY="16"/>
 </e:Skin>

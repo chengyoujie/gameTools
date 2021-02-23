@@ -1,7 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
 <e:Skin class="DropDownSkin"
  xmlns:e="http://ns.egret.com/eui" width="279" height="42">
-	<e:Label id="lbl_name" text="Label" right="102" anchorOffsetX="0" left="1" verticalCenter="0"/>
-	<e:Button id="btn_down" label="Button" anchorOffsetY="0" height="40" right="0" verticalCenter="0"/>
-	<e:List id="list_drop" height="200" y="42" itemRendererSkinName="DropDownRenderSkinSkin" anchorOffsetX="0" right="103" left="0" visible="false"/>
+	<e:Label id="lbl_name" text="下拉" right="34" anchorOffsetX="0" left="1" verticalCenter="0"/>
+	<e:Group id="group_drop" x="0" y="42">
+		<e:Image id="img_listBg" source="sb_bg_sb03_png" left="0" right="0" height="200" y="0"/>
+		<e:List id="list_drop" height="200" y="0" itemRendererSkinName="DropDownRenderSkinSkin" anchorOffsetX="0" visible="true" x="0"/>
+	</e:Group>
+	<e:Image id="btn_down" source="zd_icn_xl_png" y="1" right="0"/>
 </e:Skin>

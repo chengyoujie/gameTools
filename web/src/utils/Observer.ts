@@ -210,5 +210,5 @@ namespace tools{
             }
         }
     }
-    export let observer;// = new Observer(true);
+    export let observer:Observer;// = new Observer(true);
 }

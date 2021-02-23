@@ -28,7 +28,7 @@ module tools {
             /** 界面关闭时的处理 */
             public onClose?(): void;
             /**界面销毁 */
-            public onDestroy?():void;
+            protected onDestroy?():void;
 
             protected onCreate?():void;
 
@@ -52,19 +52,24 @@ module tools {
             /**重写添加到舞台 */
             $onAddToStage(stage: egret.Stage, nestLevel: number) {
                 super.$onAddToStage(stage, nestLevel);
-                let s = this;//后续可以考虑吓帧执行
+                let s = this;
                 let params = s.showOpt ? s.showOpt.params : undefined;
                 if(s.onOpen)
                 {
                     s.onOpen(...params);
                 }
-                s.on(egret.Event.RESIZE,s.handleSizeChange, s);
-            }
-            /**重写移除舞台 */
-            $onRemoveFromStage(): void
-            {
-                super.$onRemoveFromStage();
-                let s= this;
+                if(s.onResize)
+                {
+                    ToolsApp.stage.on(egret.Event.RESIZE,s.handleSizeChange, s);
+                }
+                s.once(egret.Event.REMOVED_FROM_STAGE, s.handleOnClose, s);
+            } 
+
+            /**关闭界面 */
+            protected handleOnClose(e:egret.Event){
+                let s = this;
+                s.off(egret.Event.REMOVED_FROM_STAGE, s.handleOnClose, s);
+                ToolsApp.stage.off(egret.Event.RESIZE,s.handleSizeChange, s);
                 s.rmvsEvt();
                 loopMgr.clearAll(s);
                 egret.Tween.removeTweens(s);
@@ -74,9 +79,7 @@ module tools {
                 }
             }
 
-            /** 
-             * 移除界面事件侦听
-             *  */
+            /**移除界面事件侦听*/
             protected rmvsEvt(): void {
                 let s = this;
                 let evtObjs = s.evtObInfo.evtObjs;
@@ -86,6 +89,11 @@ module tools {
                     }
                 }
                 s.evtObInfo = { evtObjs: [], evtHash: {} };
+            }
+
+            public close(){
+                let s = this;
+                s.removeSelf();
             }
 
             /**销毁界面 */
